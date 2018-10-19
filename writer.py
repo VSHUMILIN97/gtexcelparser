@@ -6,11 +6,21 @@ from parser import parse_data
 
 
 def setup_new_sheet(ws):
+    """ For each new sheet there should be a special design of header
+
+    Args:
+        ws: Excel worksheet in Xlwt
+
+    """
     ws.row(0).height_mismatch = True
     ws.row(0).height = int(2*260)
     for cell_index, cell_header in enumerate(ROW_HEADER_LIST):
         ws.col(cell_index).width = int((len(cell_header) + 5) * 260)
-        ws.write(0, cell_index, cell_header, set_style(SKY_BLUE_COLOR, header=True))
+        ws.write(
+            0,
+            cell_index,
+            cell_header,
+            set_style(SKY_BLUE_COLOR, header=True))
     del cell_header, cell_index
 
 
@@ -54,26 +64,56 @@ if __name__ == '__main__':
                 ws = wb.add_sheet(f'S{int(dispatch_idx)}')
                 setup_new_sheet(ws)
             for inner_index, g_t_data in enumerate(gold_tiger):
+                # CODE BELOW IS REDUNDANT (Refactor Case)
                 if RAW_CONST % 2 != 0:
                     try:
-                        ws.col(inner_index).width = int((len(g_t_data) + 4)*260)
+                        ws.col(inner_index).width = int(
+                            (len(g_t_data) + 4)*260
+                        )
                     except TypeError:
                         pass
                     if isinstance(g_t_data, float):
-                        ws.write(RAW_CONST, inner_index, float(g_t_data), PALE_BLUE_STYLE)
+                        ws.write(
+                            RAW_CONST,
+                            inner_index,
+                            float(g_t_data),
+                            PALE_BLUE_STYLE
+                        )
                     elif isinstance(g_t_data, int):
-                        ws.write(RAW_CONST, inner_index, int(g_t_data), PALE_BLUE_STYLE_WO_COMMAS)
+                        ws.write(
+                            RAW_CONST,
+                            inner_index,
+                            int(g_t_data),
+                            PALE_BLUE_STYLE_WO_COMMAS
+                        )
                     else:
-                        ws.write(RAW_CONST, inner_index, g_t_data, PALE_BLUE_STYLE)
+                        ws.write(
+                            RAW_CONST,
+                            inner_index,
+                            g_t_data,
+                            PALE_BLUE_STYLE
+                        )
                 else:
                     try:
-                        ws.col(inner_index).width = int((len(g_t_data) + 4)*260)
+                        ws.col(inner_index).width = int(
+                            (len(g_t_data) + 4)*260
+                        )
                     except TypeError:
                         pass
                     if isinstance(g_t_data, float):
-                        ws.write(RAW_CONST, inner_index, float(g_t_data), WHITE_STYLE)
+                        ws.write(
+                            RAW_CONST,
+                            inner_index,
+                            float(g_t_data),
+                            WHITE_STYLE
+                        )
                     elif isinstance(g_t_data, int):
-                        ws.write(RAW_CONST, inner_index, int(g_t_data), WHITE_STYLE_WO_COMMAS)
+                        ws.write(
+                            RAW_CONST,
+                            inner_index,
+                            int(g_t_data),
+                            WHITE_STYLE_WO_COMMAS
+                        )
                     else:
                         ws.write(RAW_CONST, inner_index, g_t_data, WHITE_STYLE)
             if gold_tiger.bag_ipk > 13:

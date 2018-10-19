@@ -3,6 +3,16 @@ from .colors import *
 
 
 def set_style(colour, splitter=None, header=None):
+    """ Set style for the current cell
+
+    Args:
+        colour: cell colour
+        splitter: condition for the special cell style
+        header: condition for the special cell style
+
+    Returns:
+        style: style object for xlwt
+    """
     style = xlwt.XFStyle()
     pattern = xlwt.Pattern()
     alignment = xlwt.Alignment()
